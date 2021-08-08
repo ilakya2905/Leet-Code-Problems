@@ -1,0 +1,29 @@
+def findPalindrome(s,left,right):
+    count = 0
+    while(left>=0 and right<len(s) and s[left]==s[right]):
+        count=count+1
+        left = left-1
+        right=right+1
+    return count
+        
+class Solution:
+    def longestPalindrome(self, s: str) -> str:
+        if(len(s)==0):
+            return ''
+        if(len(s)==1):
+            return s
+        result = []
+        lenList = []
+        for i in range(len(s)):
+            len1 = findPalindrome(s,i,i) #for odd len palindrome like mom
+            len2 = findPalindrome(s,i,i+1) #for even len palindrome bbdd
+            if(len1>len2):
+                length = len1+(len1-1)
+                lenList.append(length)
+                result.append(s[i-length//2 : i+(length//2)+1])
+            else:
+                length = 2*len2
+                lenList.append(length)
+                result.append(s[i - ((length//2)-1) : i+(length//2)+1])
+        print(result)
+        return result[lenList.index(max(lenList))]
